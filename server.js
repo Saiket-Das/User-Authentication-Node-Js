@@ -13,10 +13,13 @@ app.use(express.json());
 dbConnection();
 
 // Routes
+const userRoutes = require("./backend/routes/user.route");
 
 app.get("/", (req, res) => {
   res.send("User Auth is running");
 });
+
+app.use("/api/user", userRoutes);
 
 app.listen(port, function () {
   console.log(`User Auth is running on ${port}`.yellow);

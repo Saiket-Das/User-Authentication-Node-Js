@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcrypt");
 
 const userSchema = mongoose.Schema(
   {
@@ -39,7 +40,7 @@ const userSchema = mongoose.Schema(
         validator: function (value) {
           return value === this.password;
         },
-        message: "Passwords don't match!",
+        message: "Password doesn't match!",
       },
     },
 
@@ -73,14 +74,14 @@ userSchema.pre("save", async function (next) {
   }
 });
 
-userSchema.pre("save", function async(next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     return next();
   }
-
-  const hashedPassword = bcrypt.hashSync(this.password);
-  this.password = hashedPassword;
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
   this.confirmPassword = undefined;
+
   next();
 });
 
