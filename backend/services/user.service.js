@@ -6,3 +6,10 @@ exports.registerService = async (userInfo) => {
 
   return result;
 };
+
+exports.findUserByEmail = async (email) => {
+  const result = await User.findOne({ email });
+  console.log(result);
+
+  return result;
+};

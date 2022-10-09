@@ -86,8 +86,8 @@ userSchema.pre("save", async function (next) {
 });
 
 userSchema.methods.comparePassword = function (password, hash) {
-  const isPassowrdMatch = bcrypt.compareSync(password, hash);
-  return isPassowrdMatch;
+  const isPassowrdValid = bcrypt.compareSync(password, hash);
+  return isPassowrdValid;
 };
 
 const User = mongoose.model("User", userSchema);
