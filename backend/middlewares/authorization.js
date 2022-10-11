@@ -1,6 +1,6 @@
 module.exports = (...role) => {
   return (req, res, next) => {
-    // From VerifyToken
+    // Got it from VerifyToken
     const userRole = req.user.role;
 
     if (!role.includes(userRole)) {
