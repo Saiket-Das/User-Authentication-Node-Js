@@ -1,7 +1,9 @@
 const {
   registerService,
   findUserByEmail,
+  findUserById,
 } = require("../services/user.service");
+const { generateToken } = require("../utilis/token");
 
 exports.register = async (req, res, next) => {
   try {
@@ -49,6 +51,8 @@ exports.login = async (req, res, next) => {
       });
     }
 
+    const token = generateToken(user);
+
     const { password: pwd, ...others } = user.toObject();
 
     res.status(200).json({
@@ -56,7 +60,26 @@ exports.login = async (req, res, next) => {
       message: "Successfully sign up",
       data: {
         user: others,
+        token: token,
       },
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+
+exports.getMe = async (req, res, next) => {
+  try {
+    const user = await findUserById(req.user.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Successfully get logged in user info",
+      data: user,
     });
   } catch (error) {
     res.status(400).send({
