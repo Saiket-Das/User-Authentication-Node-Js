@@ -19,6 +19,13 @@ exports.findUserById = async (userId) => {
   return result;
 };
 
+exports.userProfileUpdateService = async (userId, updateInfo) => {
+  const result = await User.findByIdAndUpdate({ _id: userId }, updateInfo, {
+    runValidators: true,
+  });
+  return result;
+};
+
 exports.getAllUsersService = async () => {
   const result = await User.find();
   return result;

@@ -12,17 +12,17 @@ const storage = multer.diskStorage({
 const uploader = multer({
   storage,
   fileFilter: (req, file, cb) => {
-    const extension = path.extname(file.originalname);
     const supportedImage = /png|jpg|jpeg|webp/;
+    const extension = path.extname(file.originalname);
 
     if (supportedImage.test(extension)) {
       cb(null, true);
     } else {
-      cb(new Error("Image must be in png/jpg/jpeg/webp format"));
+      cb(new Error("Must be a png/jpg image"));
     }
   },
   limits: {
-    fileSize: 2000000,
+    fileSize: 5000000,
   },
 });
 

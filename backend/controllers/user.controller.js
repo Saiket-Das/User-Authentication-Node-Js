@@ -3,6 +3,7 @@ const {
   findUserByEmail,
   findUserById,
   getAllUsersService,
+  userProfileUpdateService,
 } = require("../services/user.service");
 const { generateToken } = require("../utilis/token");
 
@@ -109,15 +110,36 @@ exports.getAllUsers = async (req, res, next) => {
   }
 };
 
+exports.userProfileUpdate = async (req, res, next) => {
+  try {
+    const result = await userProfileUpdateService(req.user.id, req.body);
+
+    res.status(200).json({
+      success: true,
+      message: "Successfully get all users info",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).send({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
+  }
+};
+
 exports.fileUpload = async (req, res, next) => {
   try {
     res.status(202).json({
-      acknowledgement: true,
       message: "Success",
       description: "Succesfully image uploaded",
-      data: req.file.filename,
+      data: req.files,
     });
   } catch (error) {
-    next(error);
+    return res.status(400).send({
+      success: false,
+      message: "Something went wrong",
+      error: error.message,
+    });
   }
 };

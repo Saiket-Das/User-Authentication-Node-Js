@@ -5,15 +5,20 @@ const verifyToken = require("../middlewares/verifyToken");
 const authorization = require("../middlewares/authorization");
 const uploader = require("../middlewares/uploader");
 
-router
-  .route("/file-upload")
-  .post(uploader.single("image"), userController.fileUpload);
+router.post(
+  "/file-upload",
+  uploader.single("image"),
+  userController.fileUpload
+);
 
 router.post("/signup", userController.register);
 
 router.post("/login", userController.login);
 
 router.route("/me").get(verifyToken, userController.getMe);
+router
+  .route("/profile-update")
+  .patch(verifyToken, userController.userProfileUpdate);
 
 router
   .route("/all")
