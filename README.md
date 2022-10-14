@@ -1,5 +1,12 @@
 # User Authentication
 
+### Features
+* Confirm password
+* User authorization
+* User profile picture upload 
+* Confirm email (upcoming)
+* Reset password (upcoming)
+
 ### Packages
 * jsonwebtoken
 * bcrypt
