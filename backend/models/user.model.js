@@ -30,7 +30,7 @@ const userSchema = mongoose.Schema(
             minNumbers: 3,
             minSymbols: 1,
           }),
-        message: "Your password too week",
+        message: "Your password is too week",
       },
     },
     confirmPassword: {
@@ -46,7 +46,6 @@ const userSchema = mongoose.Schema(
 
     imageURL: {
       type: String,
-      require: true,
       default:
         "https://img.icons8.com/external-tanah-basah-glyph-tanah-basah/344/external-user-user-tanah-basah-glyph-tanah-basah-7.png",
     },
