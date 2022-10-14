@@ -108,3 +108,16 @@ exports.getAllUsers = async (req, res, next) => {
     });
   }
 };
+
+exports.fileUpload = async (req, res, next) => {
+  try {
+    res.status(202).json({
+      acknowledgement: true,
+      message: "Success",
+      description: "Succesfully image uploaded",
+      data: req.file.filename,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

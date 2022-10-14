@@ -3,6 +3,11 @@ const router = express.Router();
 const userController = require("../controllers/user.controller");
 const verifyToken = require("../middlewares/verifyToken");
 const authorization = require("../middlewares/authorization");
+const uploader = require("../middlewares/uploader");
+
+router
+  .route("/file-upload")
+  .post(uploader.single("image"), userController.fileUpload);
 
 router.post("/signup", userController.register);
 
